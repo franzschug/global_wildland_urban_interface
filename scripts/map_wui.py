@@ -47,6 +47,7 @@ fswVegPath = "/dir/landcover/" + region + "/" + tile + "/fswWildVeg_500.tif"
 
 # water mask
 waterPath = "/dir/water/" + region + "/" + tile + "/water.tif"
+wcPath = "data/landcover/" + region + "/" + tile + "/worldcover.tif"
 
 # buffered large vegetation patches
 bufferedPath = "/dir/landcover/" + region + "/" + tile + "/bufferedVeg_2400.tif"
@@ -57,7 +58,7 @@ bufferedFSWPath = "/dir/landcover/" + region + "/" + tile + "/bufferedFSWVeg_240
 
 ### Set out directory and path
 outDir = "/dir/wui/" + region + "/" + tile
-outPath = outDir + "/WUI_AL.tif"
+outPath = outDir + "/WUI.tif"
 
 
 ### Load datasets
@@ -71,7 +72,7 @@ fswWildVegetation = gdal.Open(fswVegPath).ReadAsArray()
 
 grassWildVegetation = wildVegetation - fswWildVegetation
 
-bufferedVegPath = gdal.Open(bufferedPatch).ReadAsArray()
+bufferedVegPath = gdal.Open(bufferedPath).ReadAsArray()
 
 fswVegetationBuffer = gdal.Open(bufferedFSWPath).ReadAsArray()
 
@@ -141,6 +142,9 @@ outArray[isGrey] = 8        # other non-WUI
 waterMask = gdal.Open(waterPath).ReadAsArray()
 outArray[waterMask > 20] = 0
 
+wcMask = gdal.Open(wcPath).ReadAsArray()
+outArray[wcMask == 80] = 0
+outArray[wcMask == 255] = 0
 
 ### Write output
 if not os.path.exists(outDir):
