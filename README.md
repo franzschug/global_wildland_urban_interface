@@ -20,5 +20,8 @@ Run `python3 /directory/map_wui.py NA X0062_Y0061` from the demo directorty to e
 
 The expected runtime is ca. 9 seconds per tile (single-core tested, 2.6 GHz CPU speed).
 
-
 ## 4. Instructions for use
+
+Intermediate data for other tiles than the demo tiles are currently not available for download due to file sizes. Intermediate building and other land cover data can, however, be re-creatd using basic GIS functionalities (moving window averaging and buffering).
+
+ 
