@@ -37,27 +37,28 @@ tile = str(sys.argv[2]).split(" ")[0]
 ### Set paths to all input data
 
 # mean building density in a 500 m radius
-bldDensityPath = "/bldDensity/" + region + "/" + tile + "/bldDensity_500.tif"
+bldDensityPath = "data/bldDensity/" + region + "/" + tile + "/bldDensity_500.tif"
 
 # mean wildland vegetation cover (all classes) in a 500 m radius
-wildVegPath = "/landcover/" + region + "/" + tile + "/allWildVeg_500.tif"
+wildVegPath = "data/landcover/" + region + "/" + tile + "/allWildVeg_500.tif"
 
 # mean wildland vegetation cover (forest/shrubland/wetland only) in a 500 m radius
-fswVegPath = "/landcover/" + region + "/" + tile + "/fswWildVeg_500.tif"
+fswVegPath = "data/landcover/" + region + "/" + tile + "/fswWildVeg_500.tif"
 
 # water mask
-waterPath = "/water/" + region + "/" + tile + "/water.tif"
+waterPath = "data/water/" + region + "/" + tile + "/water.tif"
+wcPath = "data/landcover/" + region + "/" + tile + "/worldcover.tif"
 
 # buffered large vegetation patches
-bufferedPath = "/landcover/" + region + "/" + tile + "/bufferedVeg_2400.tif"
+bufferedPath = "data/landcover/" + region + "/" + tile + "/bufferedVeg_2400.tif"
 
 # buffered large vegetation patches (only forest/shrubland/grassland)
-bufferedFSWPath = "/landcover/" + region + "/" + tile + "/bufferedFSWVeg_2400.tif"
+bufferedFSWPath = "data/landcover/" + region + "/" + tile + "/bufferedFSWVeg_2400.tif"
 
 
 ### Set out directory and path
-outDir = "/wui/" + region + "/" + tile
-outPath = outDir + "/WUI_AL.tif"
+outDir = "data/wui/" + region + "/" + tile
+outPath = outDir + "/WUI.tif"
 
 
 ### Load datasets
@@ -71,7 +72,7 @@ fswWildVegetation = gdal.Open(fswVegPath).ReadAsArray()
 
 grassWildVegetation = wildVegetation - fswWildVegetation
 
-bufferedVegPath = gdal.Open(bufferedPatch).ReadAsArray()
+bufferedVegPath = gdal.Open(bufferedPath).ReadAsArray()
 
 fswVegetationBuffer = gdal.Open(bufferedFSWPath).ReadAsArray()
 
@@ -141,6 +142,9 @@ outArray[isGrey] = 8        # other non-WUI
 waterMask = gdal.Open(waterPath).ReadAsArray()
 outArray[waterMask > 20] = 0
 
+wcMask = gdal.Open(wcPath).ReadAsArray()
+outArray[wcMask == 80] = 0
+outArray[wcMask == 255] = 0
 
 ### Write output
 if not os.path.exists(outDir):
