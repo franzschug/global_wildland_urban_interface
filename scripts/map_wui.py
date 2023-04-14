@@ -27,7 +27,7 @@ from osgeo import gdal
 #                                               7 - non-WUI, dense built-up / urban
 #                                               8 - non-WUI, other land cover (e.g., dominant agriculture)
                                                 
-# Example of Usage: python3 /directory/map_wui.py EU X0030_Y0087
+# Example of Usage: python3 /directory/map_wui.py NA X0062_Y0061
 #
 
 ### Read region and tile parameter
@@ -56,7 +56,7 @@ bufferedFSWPath = "/dir/landcover/" + region + "/" + tile + "/bufferedFSWVeg_240
 
 
 ### Set out directory and path
-outDir = "/data/global_wui/012_wui/v20/" + region + "/" + tile
+outDir = "/dir/wui/" + region + "/" + tile
 outPath = outDir + "/WUI_AL.tif"
 
 
