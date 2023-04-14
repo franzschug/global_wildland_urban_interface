@@ -14,11 +14,11 @@ The code can be downloaded and immediately used on any machine that satisfies th
 
 ## 3. Demo
 
-This repository provides a demo inlcuding all required datasets
-Example of Usage: python3 /directory/map_wui.py EU X0030_Y0087
+This repository provides a demo inlcuding all required datasets. 
 
-run from working directory (i.e., from within the demo archive)
+Run `python3 /directory/map_wui.py NA X0062_Y0061` from the demo directorty to execute the script with the demo tile. The resulting wildland-urban interface map will be saved to the `wui` directory.
 
 The expected runtime is ca. 9 seconds per tile (single-core tested, 2.6 GHz CPU speed).
+
 
 ## 4. Instructions for use
